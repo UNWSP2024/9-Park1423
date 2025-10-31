@@ -1,18 +1,47 @@
-# Program #3: Average Numbers
-# Assume a file containing a series of integers is named numbers.txt and exists on the computer's disk.
-# (please use the provided numbers.txt)
-# Write a program that reads all of the numbers stored in the file and calculates their total.  
+##
+#   -Average numbers-
+# 10/31/2025 🎃
+# By Parker Jolly
+# Reads numbers from a file and returns the average
+##
 
-# The program should handle the following exceptions: 
+# Initilize varibles to prevent errors
+FILEDIRECTORY = "numbers.txt"
+file = ""
 
-# It should handle any IOError exceptions that are raised.
-# It should handle any ValueError exceptions that are raised when the items that are read from the file 
-# are converted to a number.
+
 def sum_numbers_from_file():
-    ######################
-    # Add your code here #
-    ######################
-    print('In the sum_numbers_from_file function')
+    total = 0
+    lines = 0
+
+    try:
+        # Open file
+        file = open(FILEDIRECTORY, "r")
+
+        # For each non-empty line add the line to total and 1 to lines, the total number of lines
+        for line in file:
+            if line != "":
+                lines += 1
+                total += int(line)
+            else:
+                break
+            
+        # Print the average
+        print(f"The average number in the file {FILEDIRECTORY} is {total/lines:.2f}")
+
+    # Handle errors
+    except FileNotFoundError:
+        print(f"ERR: The file {FILEDIRECTORY} could not be found.")
+    except ZeroDivisionError:
+        print(f"ERR: The file {FILEDIRECTORY} is empty.")
+    except ValueError:
+        # Lines here would be the last line read before this crash happened.
+        print(f"ERR: Line {lines} in {FILEDIRECTORY} is not a number.")
+    except:
+        print("ERR: An unkown error occured.")
+
+
+
 
 # You don't need to change anything below this line:
 if __name__ == '__main__':
